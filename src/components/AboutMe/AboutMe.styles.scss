@@ -1,0 +1,24 @@
+.aboutMe {
+  align-self: flex-end;
+  position: absolute;
+  top: 0;
+  left: -70%;
+  height: 98%;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__title {
+  }
+
+  &__content {
+    background-color: #fff;
+    height: 100%;
+    width: 90%;
+    margin-top: 2rem;
+    flex: 2 1;
+    border-radius: 2rem;
+    text-align: center;
+  }
+}

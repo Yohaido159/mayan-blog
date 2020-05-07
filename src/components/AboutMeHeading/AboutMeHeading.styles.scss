@@ -1,0 +1,21 @@
+.aboutMeHeading {
+  top: -12rem;
+  left: -28%;
+  position: absolute;
+  transform-style: preserve-3d;
+  display: block;
+  background-color: #ddd;
+  padding: 2rem;
+}
+
+.aboutMeHeading::after {
+  content: "";
+  position: absolute;
+  background-color: var(--color-main);
+  width: 40rem;
+  height: 0.2rem;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  transform: translateZ(-1px);
+}

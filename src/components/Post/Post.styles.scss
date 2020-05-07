@@ -1,0 +1,49 @@
+.post {
+  display: flex;
+  justify-content: center;
+  height: auto;
+  flex-wrap: wrap;
+
+  &__title h4 {
+    font-size: 3rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    flex: 1 1 100%;
+  }
+
+  &__content {
+    background-color: white;
+    width: 90%;
+    flex: 1 1 100%;
+    height: auto;
+    margin-right: 3rem;
+    margin-left: 3rem;
+    margin-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+
+    p {
+      margin: 2rem;
+      text-align: right;
+      font-size: 1.5rem;
+      flex: 1 1 60%;
+    }
+
+    &__p-main {
+      flex: 1 1 60%;
+    }
+  }
+
+  &__img-main {
+    background-image: url(http://127.0.1:8000/media/post_photo/101010/sakura-4890030_1920.jpg);
+    background-size: cover;
+  }
+}
+
+.post_image {
+  &-main {
+    display: flex;
+  }
+
+  margin: 1rem;
+}

@@ -1,0 +1,22 @@
+.categoryHeading {
+  align-self: flex-end;
+  margin-right: 5rem;
+  margin-top: 5rem;
+  position: relative;
+  background-color: #ddd;
+  display: block;
+  transform-style: preserve-3d;
+  padding: 2rem;
+}
+
+.categoryHeading::after {
+  content: "";
+  position: absolute;
+  background-color: var(--color-main);
+  width: 60rem;
+  height: 0.2rem;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  transform: translateZ(-1px);
+}
