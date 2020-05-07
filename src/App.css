@@ -8,6 +8,10 @@
   box-sizing: border-box;
 }
 
+*:focus {
+  outline: none !important;
+}
+
 html {
   /* font-size: 62.5%; */
   font-size: 80%;

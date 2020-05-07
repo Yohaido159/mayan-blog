@@ -1,6 +1,7 @@
 .editPost {
   display: flex;
-  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 
   &__form {
     margin-top: 5rem;
@@ -8,7 +9,7 @@
     flex-direction: column;
     background-color: white;
     height: auto;
-    width: 30rem;
+    width: 70rem;
 
     & > input {
       margin: 1rem 2rem;
@@ -24,5 +25,57 @@
     #title {
       margin-top: 1rem;
     }
+  }
+
+  &__category {
+    margin: 1rem 2rem;
+    padding: 0.5rem 1rem;
+  }
+
+  &__textarea {
+    margin: 1rem 2rem;
+    padding: 0.5rem 1rem;
+  }
+
+  &__p {
+    margin: 1rem 2rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+.successMessage {
+  margin-top: 3rem;
+  padding: 1rem 2rem;
+  background-color: rgb(0, 187, 93);
+  font-size: 1.6rem;
+  text-align: center;
+  width: 70rem;
+  color: #fff;
+}
+.problemMessage {
+  margin-top: 3rem;
+  padding: 1rem 2rem;
+  background-color: rgb(187, 0, 0);
+  font-size: 1.6rem;
+  text-align: center;
+  width: 70rem;
+  color: #fff;
+}
+.btn-edit {
+  display: block;
+  padding: 1rem 2rem;
+  width: 40%;
+  align-self: center;
+  border: none;
+  margin-bottom: 1rem;
+
+  &:active,
+  &:link {
+    border: none;
+    transform: translateY(1.5px);
+  }
+
+  &:hover {
+    background-color: rgb(230, 230, 230);
   }
 }

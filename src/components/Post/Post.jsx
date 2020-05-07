@@ -15,8 +15,9 @@ const Post = ({ posts, match }) => {
     params: { category, postId },
   } = match;
 
-  let post = posts.filter((post) => post.category === parseInt(category) && post.id === parseInt(postId));
+  let post = posts.filter((post) => post.category === category && post.id === parseInt(postId));
   post = post[0];
+  console.log(post);
 
   if (!post) {
     post = {

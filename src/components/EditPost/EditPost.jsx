@@ -14,6 +14,7 @@ const EditPost = () => {
   const [paragraphes, setParagraphes] = useState();
 
   const [valueCategories, setValueCategories] = useState([]);
+  const [successMessage, setSuccessMessage] = useState(false);
 
   useEffect(() => {
     setParagraphes([]);
@@ -49,12 +50,14 @@ const EditPost = () => {
       formData.append(`post_paragraph[${idx}]p`, para);
     });
 
-    fetch("http://127.0.0.1:8000/api/post/", {
-      method: "POST",
-      body: formData,
-    })
-      .then((res) => res.json())
-      .then((res) => console.log(res))
+    axios
+      .post("http://127.0.0.1:8000/api/post/", formData)
+      .then((res) => {
+        console.log(res);
+        if (res.status === 201) {
+          setSuccessMessage(true);
+        }
+      })
       .catch((err) => console.log(err));
   };
 
@@ -68,7 +71,8 @@ const EditPost = () => {
         <hr />
 
         <label htmlFor="category">category</label>
-        <select id="category" onChange={setValueCategory}>
+
+        <select className="editPost__category" id="category" onChange={setValueCategory}>
           <option value="">בחר קטגוריה</option>
           {valueCategories.map((category) => (
             <option key={category.id} value={category.name}>
@@ -79,15 +83,16 @@ const EditPost = () => {
 
         <hr />
 
-        <textarea value={valueParagraph} onChange={setValueParagraph}></textarea>
+        <textarea className="editPost__textarea" value={valueParagraph} onChange={setValueParagraph}></textarea>
         <input type="button" value="Add Paragraph" onClick={savePara} />
 
-        {paragraphes ? paragraphes.map((paragraph) => <p>{paragraph}</p>) : null}
+        {paragraphes ? paragraphes.map((paragraph) => <p className="editPost__p">{paragraph}</p>) : null}
 
         <label htmlFor="firstImage">First Image</label>
         <input id="firstImage" type="file" onChange={onChangeImage} />
-        <button>Send</button>
+        <button className="btn-edit">Send</button>
       </form>
+      {successMessage ? <div className="successMessage">הפוסט נשלח בהצלחה</div> : null}
     </div>
   );
 };
