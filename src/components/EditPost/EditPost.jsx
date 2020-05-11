@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 
+import { useSelector } from "react-redux";
+
 import axios from "axios";
 
 import formUtily from "../../hook/form";
@@ -7,6 +9,7 @@ import formUtily from "../../hook/form";
 import "./EditPost.styles.scss";
 
 const EditPost = () => {
+  const user = useSelector((state) => state.users.currentUser);
   const [valueTitle, setValueTitle] = formUtily("");
   const [valueCategory, setValueCategory] = formUtily("");
   const [valueParagraph, setValueParagraph, resetParagraph] = formUtily("");
@@ -50,8 +53,10 @@ const EditPost = () => {
       formData.append(`post_paragraph[${idx}]p`, para);
     });
 
+    const token = window.localStorage.getItem("token") || null;
+
     axios
-      .post("http://127.0.0.1:8000/api/post/", formData)
+      .post("http://127.0.0.1:8000/api/post/", formData, { headers: { Authorization: "JWT " + token } })
       .then((res) => {
         console.log(res);
         if (res.status === 201) {
@@ -62,37 +67,43 @@ const EditPost = () => {
   };
 
   return (
-    <div className="editPost">
-      <form onSubmit={handleSubmit} method="post" className="editPost__form">
-        <label id="title" htmlFor="title">
-          Title
-        </label>
-        <input id="title" type="text" value={valueTitle} onChange={setValueTitle} />
-        <hr />
+    <div>
+      {user ? (
+        <div className="editPost">
+          <form onSubmit={handleSubmit} method="post" className="editPost__form">
+            <label id="title" htmlFor="title">
+              Title
+            </label>
+            <input id="title" type="text" value={valueTitle} onChange={setValueTitle} />
+            <hr />
 
-        <label htmlFor="category">category</label>
+            <label htmlFor="category">category</label>
 
-        <select className="editPost__category" id="category" onChange={setValueCategory}>
-          <option value="">בחר קטגוריה</option>
-          {valueCategories.map((category) => (
-            <option key={category.id} value={category.name}>
-              {category.name}
-            </option>
-          ))}
-        </select>
+            <select className="editPost__category" id="category" onChange={setValueCategory}>
+              <option value="">בחר קטגוריה</option>
+              {valueCategories.map((category) => (
+                <option key={category.id} value={category.name}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
 
-        <hr />
+            <hr />
 
-        <textarea className="editPost__textarea" value={valueParagraph} onChange={setValueParagraph}></textarea>
-        <input type="button" value="Add Paragraph" onClick={savePara} />
+            <textarea className="editPost__textarea" value={valueParagraph} onChange={setValueParagraph}></textarea>
+            <input type="button" value="Add Paragraph" onClick={savePara} />
 
-        {paragraphes ? paragraphes.map((paragraph) => <p className="editPost__p">{paragraph}</p>) : null}
+            {paragraphes ? paragraphes.map((paragraph) => <p className="editPost__p">{paragraph}</p>) : null}
 
-        <label htmlFor="firstImage">First Image</label>
-        <input id="firstImage" type="file" onChange={onChangeImage} />
-        <button className="btn-edit">Send</button>
-      </form>
-      {successMessage ? <div className="successMessage">הפוסט נשלח בהצלחה</div> : null}
+            <label htmlFor="firstImage">First Image</label>
+            <input id="firstImage" type="file" onChange={onChangeImage} />
+            <button className="btn-edit">Send</button>
+          </form>
+          {successMessage ? <div className="successMessage">הפוסט נשלח בהצלחה</div> : null}
+        </div>
+      ) : (
+        <h3>C'ant Access</h3>
+      )}
     </div>
   );
 };
