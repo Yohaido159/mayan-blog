@@ -10,6 +10,23 @@ const userReducer = (state = INITIAL_STATE, action) => {
         currentUser: action.user,
       };
 
+    case "SUBMIT_START":
+      return {
+        ...state,
+      };
+
+    case "SUBMIT_INPUT":
+      return {
+        ...state,
+        form: action.form,
+      };
+
+    case "SUCCESS_LOGIN":
+      return {
+        ...state,
+        success: action.success,
+      };
+
     default:
       return state;
   }

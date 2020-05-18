@@ -17,7 +17,6 @@ const Category = (props) => {
     };
     fetchData();
   }, []);
-  console.log(categories);
 
   return (
     <div className="category">

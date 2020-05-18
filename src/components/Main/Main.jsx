@@ -10,7 +10,6 @@ import "./Main.styles.scss";
 import Header from "../Header/Header";
 
 import Nav from "../Nav/Nav";
-import Logo from "../Logo/Logo";
 import Category from "../Category/Category";
 import CategoryHeading from "../CategoryHeading/CategoryHeading";
 import RecentPost from "../RecentPost/RecentPost";
@@ -25,7 +24,6 @@ const Main = (props) => {
     if (token) {
       try {
         const verifyJWT = jwt.verify(token, process.env.REACT_APP_SECRET_KEY);
-        console.log(verifyJWT);
         dispatch(userToState(verifyJWT));
       } catch (e) {
         window.localStorage.removeItem("token");

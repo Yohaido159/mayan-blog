@@ -1,34 +1,30 @@
 import React, { useState, useEffect } from "react";
-import "./RecentPost.styles.scss";
 
-import axios from "axios";
-import { connect } from "react-redux";
-
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { postsToState } from "../../redux/post/post.actions";
+import "./RecentPost.styles.scss";
 
 import StyledRecentPostImg from "./StyledRecentPostImg/StyledRecentPostImg";
 
-const RecentPost = ({ postsToState }) => {
+const RecentPost = () => {
+  const ps = useSelector((state) => state.post_main.posts);
+  const dispatch = useDispatch();
   const [posts, setPosts] = useState([]);
+  useEffect(() => {
+    setPosts(ps);
+  }, [ps]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await axios.get("http://127.0.0.1:8000/api/post/");
-      setPosts(data.data);
-    };
-    fetchData();
+    dispatch({ type: "FETCH_POSTS_START" });
   }, []);
-
-  postsToState(posts);
 
   return (
     <>
       <div className="recentPost row-my">
         {posts.map((post) => (
-          <Link to={`posts/${post.category}/${post.id}`}>
-            <div key={post.id} className="recentPost__post">
+          <Link key={post.id} to={`posts/${post.category}/${post.id}`}>
+            <div className="recentPost__post">
               <StyledRecentPostImg post_image={post.post_images[0].post_image}>
                 <div className="recentPost__img"></div>
               </StyledRecentPostImg>
@@ -47,8 +43,4 @@ const RecentPost = ({ postsToState }) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  postsToState: (posts) => dispatch(postsToState(posts)),
-});
-
-export default connect(null, mapDispatchToProps)(RecentPost);
+export default RecentPost;

@@ -1,10 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-import { useDispatch } from "react-redux";
-import { userToState } from "../../redux/user/user.action";
-
-import jwt from "jsonwebtoken";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { submitStart, formSubmit } from "../../redux/user/user.action";
 
 import "./Login.styles.scss";
 
@@ -13,7 +10,8 @@ const Login = ({ open, toggle }) => {
 
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
-  const [res, setRes] = useState(null);
+  const data = useSelector((state) => state.users);
+  console.log(data);
 
   const setUsernameChange = (e) => {
     e.preventDefault();
@@ -26,34 +24,10 @@ const Login = ({ open, toggle }) => {
   };
 
   const handleSubmit = async (e) => {
+    dispatch(formSubmit(username, password));
+    dispatch(submitStart());
     e.preventDefault();
-    const data = {
-      username: username,
-      password: password,
-    };
-    const res = await axios.post("http://127.0.0.1:8000/rest/login/", data);
-    setRes(res);
   };
-
-  useEffect(() => {
-    if (res) {
-      if (res.status === 200) {
-        window.localStorage.setItem("token", res.data.token);
-        console.log(res.data.token);
-      }
-    }
-
-    const token = window.localStorage.getItem("token") || null;
-
-    if (token) {
-      try {
-        const verifyJWT = jwt.verify(token, process.env.REACT_APP_SECRET_KEY);
-        dispatch(userToState(verifyJWT));
-      } catch (e) {
-        window.localStorage.removeItem("token");
-      }
-    }
-  }, [res]);
 
   return (
     <div className="login d-flex justify-content-center align-items-center ">
@@ -81,10 +55,10 @@ const Login = ({ open, toggle }) => {
             Close
           </button>
         </div>
-        {res ? (
+        {data ? (
           <>
-            {res.status === 200 && (
-              <div className="alert alert-success">you are loggin in! welcome: {res.data.user.username}</div>
+            {data.success === true && (
+              <div className="alert alert-success">you are loggin in! welcome: {data.currentUser.username}</div>
             )}
           </>
         ) : null}

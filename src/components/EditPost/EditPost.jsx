@@ -28,8 +28,6 @@ const EditPost = () => {
     fetchData();
   }, []);
 
-  console.log(valueCategory);
-
   const savePara = () => {
     paragraphes.push(valueParagraph);
     resetParagraph();
