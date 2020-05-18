@@ -10,9 +10,7 @@ const Footer = (props) => {
 
   const openModal = () => {
     toggle();
-    console.log(open);
   };
-  console.log(open);
   return (
     <div className="footer row-my d-flex justify-content-center">
       <button onClick={openModal} className="btn btn-outline-primary text-white btn-lg align-self-start">
